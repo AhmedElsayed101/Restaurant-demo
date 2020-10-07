@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component,Fragment } from "react";
 import Menu from "./MenuListComponent";
-
-
+import Header from './HeaderComponent'
+import Footer from './FooterComponent'
 class Main extends Component {
     
 
@@ -9,9 +9,11 @@ class Main extends Component {
     render () {
 
         return (
-            <div >
-                <Menu></Menu>
-            </div>
+            <Fragment >
+                <Header/>
+                <Menu/>
+                <Footer/>
+            </Fragment>
         )
     }
 }

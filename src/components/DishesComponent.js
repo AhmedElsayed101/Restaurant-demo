@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
     Card,
     CardImg,
@@ -9,29 +9,27 @@ import {
 } from "reactstrap";
 
 
-class Menu extends Component {
-    render() {
-        const menu = this.props.dishes.map((dish) => {
-            return (
-                <div key={dish.id} className="col-12 col-md-5 m-1">
-                    <Card onClick={() => this.props.onClick(dish.id)}>
-                        <CardImg
-                            width="100%"
-                            object
-                            src={dish.image}
-                            alt={dish.name}
-                        ></CardImg>
+function Menu(props) {
+    const menu = props.dishes.map((dish) => {
+        return (
+            <div key={dish.id} className="col-12 col-md-5 m-1">
+                <Card onClick={() => props.onClick(dish.id)}>
+                    <CardImg
+                        width="100%"
+                        object
+                        src={dish.image}
+                        alt={dish.name}
+                    ></CardImg>
 
-                        <CardImgOverlay body className="ml-5">
-                            <CardTitle>{dish.name}</CardTitle>
-                        </CardImgOverlay>
-                    </Card>
-                </div>
-            );
-        });
+                    <CardImgOverlay body className="ml-5">
+                        <CardTitle>{dish.name}</CardTitle>
+                    </CardImgOverlay>
+                </Card>
+            </div>
+        );
+    });
 
-        return <div className="row">{menu}</div>;
-    }
+    return <div className="row">{menu}</div>;
 }
 
 export default Menu;

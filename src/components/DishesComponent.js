@@ -16,12 +16,12 @@ function Menu(props) {
                 <Card onClick={() => props.onClick(dish.id)}>
                     <CardImg
                         width="100%"
-                        object
+                        // object = {true}
                         src={dish.image}
                         alt={dish.name}
                     ></CardImg>
 
-                    <CardImgOverlay body className="ml-5">
+                    <CardImgOverlay  className="ml-5">
                         <CardTitle>{dish.name}</CardTitle>
                     </CardImgOverlay>
                 </Card>

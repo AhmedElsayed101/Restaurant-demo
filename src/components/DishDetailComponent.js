@@ -15,7 +15,7 @@ function RenderDish({ dish }) {
             <Card>
                 <CardImg
                     width="100%"
-                    object
+                    // object
                     src={dish.image}
                     alt={dish.name}
                 ></CardImg>

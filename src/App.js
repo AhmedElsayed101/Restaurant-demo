@@ -1,12 +1,15 @@
 import React, {Fragment} from 'react';
 import Main from "./components/MainComponent";
+import { BrowserRouter as Router } from "react-router-dom";
 import './App.css';
 
 function App() {
   return (
-    <Fragment>
-      <Main></Main>
-    </Fragment>
+    <Router>
+      <Fragment>
+        <Main/>
+      </Fragment>
+    </Router>
   );
 }
 

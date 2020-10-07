@@ -1,16 +1,45 @@
-import React, {Component, Fragment} from 'react'
-import {Navbar, NavbarBrand, Jumbotron} from 'reactstrap'
-
+import React, { Component, Fragment } from 'react'
+import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron } from 'reactstrap'
+import { NavLink } from "react-router-dom";
 
 class Header extends Component {
 
-    render () {
+    state ={
+        isNavOpen : false
+    }
+
+    toggleNav = () => {
+        this.setState({
+            isNavOpen : !this.state.isNavOpen
+        })
+    }
+    render() {
 
         return (
             <Fragment>
-                <Navbar  dark>
+                <Navbar dark expand="md">
                     <div className="container">
-                        <NavbarBrand href= "/" >Restaurant Con Fusion</NavbarBrand>
+
+                        <NavbarToggler onClick= {this.toggleNav}></NavbarToggler>
+                        <NavbarBrand className="mr-auto" href="/" >
+                            <img src="assets/images/logo.png" height="30" width="41" alt="Restaurant Con Fusion" />
+                        </NavbarBrand>
+                        <Collapse isOpen={this.state.isNavOpen} navbar>
+                            <Nav navbar>
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/home"><i className ="fa fa-home fa-lg"></i> Home</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/aboutus"><i className ="fa fa-info fa-lg"></i> About</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/menu"><i className ="fa fa-list fa-lg"></i> Menu</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/contactus"><i className ="fa fa-address-card fa-lg"></i> ContactUs</NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
                     </div>
                 </Navbar>
                 <Jumbotron>
@@ -22,7 +51,7 @@ class Header extends Component {
                             </div>
                         </div>
                     </div>
-                    
+
                 </Jumbotron>
             </Fragment>
         )

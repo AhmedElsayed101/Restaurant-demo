@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { DISHES } from "../shared/dishes";
-import Menu from "./MenuComponent";
+import Menu from "./DishesComponent";
 import DishDetail from "./DishDetailComponent";
 
 class MenuList extends Component {

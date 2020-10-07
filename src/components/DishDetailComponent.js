@@ -30,17 +30,19 @@ class DishDetail extends Component {
         )
     }
     renderDishComments(comments) {
+
         return (
 
             <div className="col-12 col-md-5 m-1">
                 <h2>Comments</h2>
                 { comments.map((comment) => {
+                    const formatedDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))
                     return (
                         <Fragment key={comment.id}>
                             <div className="col-12">{comment.comment}</div>
                             <br />
                             <div className="col-12">
-                                {`-- ${comment.author} , ${comment.date}`}
+                                {`-- ${comment.author} , ${formatedDate}`}
                             </div>
                             <br />
                         </Fragment>

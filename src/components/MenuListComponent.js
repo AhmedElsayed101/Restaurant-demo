@@ -1,17 +1,37 @@
 import React, { Component } from "react";
 import { DISHES } from "../shared/dishes";
 import Menu from "./MenuComponent";
-class MenuList extends Component {
+import DishDetail from "./DishDetailComponent";
 
+class MenuList extends Component {
     state = {
-        dishes : DISHES
+        dishes: DISHES,
+        selectedDish: null,
+    };
+
+    onDishSelect(dishId) {
+        this.setState({
+            selectedDish: dishId,
+        });
     }
 
-    render () {
+    render() {
         return (
-            <Menu dishes = {this.state.dishes}></Menu>
-        )
+            <div className="container">
+                <Menu
+                    dishes={this.state.dishes}
+                    onClick={(dishId) => this.onDishSelect(dishId)}
+                ></Menu>
+                <DishDetail
+                    dish={
+                        this.state.dishes.filter(
+                            (dish) => dish.id === this.state.selectedDish
+                        )[0]
+                    }
+                ></DishDetail>
+            </div>
+        );
     }
 }
 
-export default MenuList
+export default MenuList;

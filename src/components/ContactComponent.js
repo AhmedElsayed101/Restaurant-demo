@@ -1,8 +1,21 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
+import { BreadcrumbItem, Breadcrumb } from "reactstrap";
 
 function Contact(props) {
     return(
         <div className="container">
+
+            <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to = '/home'>Home</Link></BreadcrumbItem>
+                    <BreadcrumbItem><Link to = '/menu'>Menu</Link></BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                <h3>Contact Us</h3>
+                </div>
+            </div>
+            
             <div className="row row-content">
                 <div className="col-12">
                 <h3>Location Information</h3>

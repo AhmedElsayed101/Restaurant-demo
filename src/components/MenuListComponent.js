@@ -21,13 +21,13 @@ class MenuList extends Component {
                     dishes={this.props.dishes}
                     onClick={(dishId) => this.onDishSelect(dishId)}
                 ></Menu>
-                <DishDetail
+                {/* <DishDetail
                     dish={
                         this.props.dishes.filter(
                             (dish) => dish.id === this.state.selectedDish
                         )[0]
                     }
-                ></DishDetail>
+                ></DishDetail> */}
             </div>
         );
     }

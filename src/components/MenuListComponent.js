@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { DISHES } from "../shared/dishes";
 import Menu from "./DishesComponent";
 import DishDetail from "./DishDetailComponent";
 
 class MenuList extends Component {
+    
     state = {
-        dishes: DISHES,
         selectedDish: null,
     };
 
@@ -19,12 +18,12 @@ class MenuList extends Component {
         return (
             <div className="container">
                 <Menu
-                    dishes={this.state.dishes}
+                    dishes={this.props.dishes}
                     onClick={(dishId) => this.onDishSelect(dishId)}
                 ></Menu>
                 <DishDetail
                     dish={
-                        this.state.dishes.filter(
+                        this.props.dishes.filter(
                             (dish) => dish.id === this.state.selectedDish
                         )[0]
                     }

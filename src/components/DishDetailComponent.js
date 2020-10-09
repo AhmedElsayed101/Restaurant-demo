@@ -20,12 +20,14 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
+import { connect } from "react-redux";
+
 function RenderButton({handleToggleModal}) {
     return (
-        <Form>
+        <Form onSubmit = {handleToggleModal}>
             <FormGroup row>
                 <Col md={{ size: 6}}>
-                    <Button type="submit" color="secondary" onClick = {handleToggleModal}>
+                    <Button type="submit" color="secondary" >
                         <i className='fa fa-pencil fa-lg'></i> Submit comment
                     </Button>
                 </Col>
@@ -53,7 +55,7 @@ function RenderDish({ dish }) {
     )
 }
 
-function RenderDishComments({ comments, handleToggleModal }) {
+function RenderDishComments({ comments, handleToggleModal, addComment}) {
 
     return (
 
@@ -73,7 +75,10 @@ function RenderDishComments({ comments, handleToggleModal }) {
                 );
             })
             }
-            <RenderButton handleToggleModal = {handleToggleModal}/>
+            <RenderButton
+                handleToggleModal = {handleToggleModal}
+                addComment = {addComment}
+            />
         </div>
     )
 }
@@ -100,23 +105,25 @@ class DishDetail extends Component {
 
     handleInputChange = (event) => {
         const { target } = event;
-        const { name, type, value, checked } = target;
-        console.log("name", name);
-
+        const { name, value} = target;
         this.setState(() => ({
             [name]: value,
         }));
     };
 
-    handleFormSubmit = (e) => {
-        e.preventDefault()
-        alert(`Rating : ${this.state.rating},   Name : ${this.state.yourname},  Comment : ${this.state.comment}`)
+    handleFormSubmit = (event) => {
+        event.preventDefault()
+        const {rating, yourname, comment} = this.state
+        const author = yourname
+        // console.log('props', this.props)
+        // alert(`Rating : ${rating},   Name : ${yourname},  Comment : ${comment}`)
+        this.props.addComment(this.props.dish.id, rating, author, comment)
         this.setState({
             rating : 1,
             yourname: '',
             comment : '',
         })
-        this.handleToggleModal(e)
+        this.handleToggleModal(event)
     }
 
     handleBlur = (field) => (event) => {
@@ -146,7 +153,6 @@ class DishDetail extends Component {
         const {rating, yourname, comment} = this.state
         const { dish, comments } = this.props;
         const errors = this.validate(rating, yourname, comment)
-
         if (dish != null) {
             return (
 
@@ -230,7 +236,11 @@ class DishDetail extends Component {
                     </div>
                 
                     <RenderDish dish={dish}></RenderDish>
-                    <RenderDishComments comments={comments} handleToggleModal ={this.handleToggleModal}></RenderDishComments>
+                    <RenderDishComments 
+                        comments={comments}
+                        handleToggleModal ={this.handleToggleModal}
+                        addComment = {this.props.addComment}
+                    ></RenderDishComments>
                 </div>
             );
         } else {

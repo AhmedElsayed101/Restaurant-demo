@@ -22,6 +22,8 @@ import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 
+import { Loading } from "./LoadingComponent";
+
 function RenderButton({handleToggleModal}) {
     return (
         <Form onSubmit = {handleToggleModal}>
@@ -151,8 +153,24 @@ class DishDetail extends Component {
     render (){
 
         const {rating, yourname, comment} = this.state
-        const { dish, comments } = this.props;
+        const { dish, comments, isLoading, errMess } = this.props;
         const errors = this.validate(rating, yourname, comment)
+
+        if(isLoading){
+            return(
+                <div className="row">
+                    <Loading/>
+                </div>
+            )
+        }
+        else if (errMess){
+            return(
+                <div className="row">
+                    <h4>{errMess}</h4>
+                </div>
+            )
+        }
+        
         if (dish != null) {
             return (
 

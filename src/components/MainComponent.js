@@ -9,10 +9,15 @@ import Contact from './ContactComponent'
 import AboutUs from "./AboutUsComponent";
 import DishDetail from "./DishDetailComponent";
 
-import { addComment } from "../redux/actions/ActionCreators";
+import { addComment, fetchDishes } from "../redux/actions/ActionCreators";
 
 class Main extends Component {
 
+
+    componentDidMount () {
+        const {fetchDishes} = this.props
+        fetchDishes()
+    }
    
     render() {
 
@@ -21,7 +26,9 @@ class Main extends Component {
             
             return (
                 <Home
-                    dish= {dishes.filter((dish) => (dish.featured))[0]}
+                    dish= {dishes.dishes.filter((dish) => (dish.featured))[0]}
+                    dishesLoading = {dishes.isLoading}
+                    dishesErrMess = {dishes.errMess}
                     leader= {leaders.filter((leader) => (leader.featured))[0]}
                     promotion= {promotions.filter((promotion) => (promotion.featured))[0]}
                 />
@@ -33,7 +40,9 @@ class Main extends Component {
                 <div className="container">
                     <div className="row">
                         <DishDetail
-                            dish = {dishes.filter((dish) => (dish.id === parseInt(match.params.dishId,10)))[0]}
+                            dish = {dishes.dishes.filter((dish) => (dish.id === parseInt(match.params.dishId,10)))[0]}
+                            isLoading = {dishes.isLoading}
+                            errMess = {dishes.errMess}
                             comments = {comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
                             addComment = {this.props.addComment}
                             />
@@ -72,7 +81,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addComment : (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment))
+    addComment : (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+    fetchDishes : () => {dispatch(fetchDishes())}
 })
 
 export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(Main))

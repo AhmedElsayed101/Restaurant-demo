@@ -14,6 +14,9 @@ import { Link } from "react-router-dom";
  
 import { Loading } from "./LoadingComponent";
 
+import { baseUrl } from "../shared/baseURL";
+
+
 function RenderMenuItem ({dish, onClick}){
 
     return(
@@ -22,7 +25,7 @@ function RenderMenuItem ({dish, onClick}){
                 <CardImg
                     width="100%"
                     // object = {true}
-                    src={dish.image}
+                    src={baseUrl + dish.image}
                     alt={dish.name}
                 ></CardImg>
 

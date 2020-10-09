@@ -24,6 +24,9 @@ import { connect } from "react-redux";
 
 import { Loading } from "./LoadingComponent";
 
+import { baseUrl } from "../shared/baseURL";
+
+
 function RenderButton({handleToggleModal}) {
     return (
         <Form onSubmit = {handleToggleModal}>
@@ -45,7 +48,7 @@ function RenderDish({ dish }) {
                 <CardImg
                     width="100%"
                     // object
-                    src={dish.image}
+                    src={baseUrl + dish.image}
                     alt={dish.name}
                 ></CardImg>
                 <CardBody>

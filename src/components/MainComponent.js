@@ -9,29 +9,36 @@ import Contact from './ContactComponent'
 import AboutUs from "./AboutUsComponent";
 import DishDetail from "./DishDetailComponent";
 
-import { addComment, fetchComments, fetchDishes, fetchPromos,} from "../redux/actions/ActionCreators";
+import { addComment, fetchComments, fetchDishes, fetchPromos, fetchLeaders} from "../redux/actions/ActionCreators";
 
 class Main extends Component {
 
 
     componentDidMount () {
-        const {fetchDishes, fetchComments, fetchPromos} = this.props
+        const {fetchDishes, fetchComments, fetchPromos, fetchLeaders} = this.props
         fetchDishes()
         fetchComments()
         fetchPromos()
+        console.log('a7a')
+        fetchLeaders()
+
+        console.log('a7a2')
+
     }
    
     render() {
 
         const {dishes, comments, promotions, leaders} = this.props
-        console.log('leaders', leaders)
+        console.log('main-props', this.props)
         const HomePage = () => {
             return (
                 <Home
                     dish= {dishes.dishes.filter((dish) => (dish.featured))[0]}
                     dishesLoading = {dishes.isLoading}
                     dishesErrMess = {dishes.errMess}
-                    leader= {leaders.filter((leader) => (leader.featured))[0]}
+                    leader= {leaders.leaders.filter((leader) => (leader.featured))[0]}
+                    leadersLoading = {leaders.isLoading}
+                    leadersErrMess = {leaders.errMess}
                     promotion= {promotions.promotions.filter((promotion) => (promotion.featured))[0]}
                     promosLoading = {promotions.isLoading}
                     promosErrMess = {promotions.errMess}
@@ -90,7 +97,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchDishes : () => {dispatch(fetchDishes())},
     fetchComments : () => {dispatch(fetchComments())},
     fetchPromos : () => {dispatch(fetchPromos())},
-
+    fetchLeaders : () => {dispatch(fetchLeaders())}
 })
 
 export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(Main))

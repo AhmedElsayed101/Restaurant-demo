@@ -12,6 +12,7 @@ import {
     Col,
 } from "reactstrap";
 
+
 class Contact extends Component {
     state = {
         firstname: "",

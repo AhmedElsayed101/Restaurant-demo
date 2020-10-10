@@ -4,23 +4,28 @@ import { Link } from 'react-router-dom';
 
 import { baseUrl } from "../shared/baseURL";
 
+import { Fade, Stagger } from 'react-animation-components';
+
 
 function About(props) {
 
+    
     const leaders = props.leaders.leaders.map((leader) => {
         return (
-            <div key= {leader.id} className="col-12 mt-5">
-                <Media tag="li">
-                    <Media left middle>
-                        <Media object src={baseUrl + leader.image} alt= {leader.name}></Media>
+            <Fade in>
+                <div key= {leader.id} className="col-12 mt-5">
+                    <Media tag="li">
+                        <Media left middle>
+                            <Media object src={baseUrl + leader.image} alt= {leader.name}></Media>
+                        </Media>
+                        <Media body className="ml-5">
+                            <Media heading>{leader.name}</Media>
+                            {leader.designation ? <p>{leader.designation}</p> : null}
+                            <p>{leader.description}</p>
+                        </Media>
                     </Media>
-                    <Media body className="ml-5">
-                        <Media heading>{leader.name}</Media>
-                        {leader.designation ? <p>{leader.designation}</p> : null}
-                        <p>{leader.description}</p>
-                    </Media>
-                </Media>
-            </div>
+                </div>
+            </Fade>
         );
     });
 
@@ -80,7 +85,9 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {leaders}
+                        <Stagger in>
+                            {leaders}
+                        </Stagger>
                     </Media>
                 </div>
             </div>

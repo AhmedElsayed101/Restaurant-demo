@@ -209,6 +209,14 @@
       "comment": "sadfaskldf",
       "date": "2020-10-10T07:47:51.700Z",
       "id": 20
+    },
+    {
+      "dishId": 1,
+      "rating": 1,
+      "author": "asdlkfa",
+      "comment": "lsakdfklasf",
+      "date": "2020-10-10T08:14:51.536Z",
+      "id": 21
     }
   ],
   "promotions": [

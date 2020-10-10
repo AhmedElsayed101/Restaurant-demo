@@ -26,6 +26,9 @@ import { Loading } from "./LoadingComponent";
 
 import { baseUrl } from "../shared/baseURL";
 
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+
+
 
 function RenderButton({handleToggleModal}) {
     return (
@@ -44,18 +47,25 @@ function RenderButton({handleToggleModal}) {
 function RenderDish({ dish }) {
     return (
         <div className="col-12 col-md-5 m-1">
-            <Card>
-                <CardImg
-                    width="100%"
-                    // object
-                    src={baseUrl + dish.image}
-                    alt={dish.name}
-                ></CardImg>
-                <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}
+            >
+                <Card>
+                    <CardImg
+                        width="100%"
+                        // object
+                        src={baseUrl + dish.image}
+                        alt={dish.name}
+                    ></CardImg>
+                    <CardBody>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         </div>
     )
 }
@@ -66,20 +76,21 @@ function RenderDishComments({ comments, handleToggleModal, addComment}) {
 
         <div className="col-12 col-md-5 m-1">
             <h2>Comments</h2>
-            { comments.map((comment) => {
-                const formatedDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))
-                return (
-                    <Fragment key={comment.id}>
-                        <div className="col-12">{comment.comment}</div>
-                        <br />
-                        <div className="col-12">
-                            {`-- ${comment.author} , ${formatedDate}`}
-                        </div>
-                        <br />
-                    </Fragment>
-                );
-            })
-            }
+            
+            <ul className = "list-unstyled">
+            <Stagger in>
+                {comments.map((comment) => {
+                    return (
+                        <Fade in>
+                        <li key={comment.id}>
+                        <p>{comment.comment}</p>
+                        <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+                        </li>
+                        </Fade>
+                    );
+                })}
+            </Stagger>
+            </ul>
             <RenderButton
                 handleToggleModal = {handleToggleModal}
                 addComment = {addComment}

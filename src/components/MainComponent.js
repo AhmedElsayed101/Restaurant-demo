@@ -11,19 +11,17 @@ import DishDetail from "./DishDetailComponent";
 
 import { postComment, fetchComments, fetchDishes, fetchPromos, fetchLeaders} from "../redux/actions/ActionCreators";
 
-class Main extends Component {
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+
+class Main extends Component {
 
     componentDidMount () {
         const {fetchDishes, fetchComments, fetchPromos, fetchLeaders} = this.props
         fetchDishes()
         fetchComments()
         fetchPromos()
-        console.log('a7a')
         fetchLeaders()
-
-        console.log('a7a2')
-
     }
    
     render() {
@@ -66,14 +64,18 @@ class Main extends Component {
         return (
             <Fragment >
                 <Header />
-                <Switch>
-                    <Route path="/home" component={() => <HomePage/>} />
-                    <Route exact path="/menu" component={() => <Menu dishes = {dishes}/>} />
-                    <Route path="/menu/:dishId" component = {DishWithId}/>
-                    <Route exact path = "/contactus" component= {Contact} />
-                    <Route exact path = "/aboutus" component = {() => <AboutUs leaders = {leaders}/>}/>
-                    <Redirect to= "/home"/>
-                </Switch>
+                <TransitionGroup>
+                    <CSSTransition key = {this.props.location.key} classNames = 'page' timeout ={300}>
+                        <Switch>
+                            <Route path="/home" component={() => <HomePage/>} />
+                            <Route exact path="/menu" component={() => <Menu dishes = {dishes}/>} />
+                            <Route path="/menu/:dishId" component = {DishWithId}/>
+                            <Route exact path = "/contactus" component= {Contact} />
+                            <Route exact path = "/aboutus" component = {() => <AboutUs leaders = {leaders}/>}/>
+                            <Redirect to= "/home"/>
+                        </Switch>
+                    </CSSTransition>
+                </TransitionGroup>
                 <Footer />
             </Fragment>
         )

@@ -68,7 +68,7 @@ class Contact extends Component {
         .then(response => response.json())
         .then(response => {
             console.log('res', response)
-            alert('Your Feedbakc : ' + JSON.stringify(response))})
+            alert('Your Feedback : ' + JSON.stringify(response))})
         .catch((err) => console.log('err', err))
     };
 

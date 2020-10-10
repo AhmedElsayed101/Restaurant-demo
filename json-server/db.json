@@ -201,6 +201,14 @@
       "comment": "It's your birthday, we're gonna party!",
       "author": "25 Cent",
       "date": "2011-12-02T17:57:28.556094Z"
+    },
+    {
+      "dishId": 0,
+      "rating": 1,
+      "author": "sadfadsf",
+      "comment": "sadfaskldf",
+      "date": "2020-10-10T07:47:51.700Z",
+      "id": 20
     }
   ],
   "promotions": [
@@ -337,6 +345,26 @@
       "contactType": "Tel.",
       "message": "",
       "id": 6
+    },
+    {
+      "firstname": "lkadsfkla",
+      "lastname": "klasdfkla",
+      "telnum": "asdfklakldf",
+      "email": "alkdfkasldf@adsf",
+      "agree": true,
+      "contactType": "Tel.",
+      "message": "aklsdfklasfklkalsdfkl",
+      "id": 7
+    },
+    {
+      "firstname": "lkadsfkla",
+      "lastname": "klasdfkla",
+      "telnum": "asdfklakldf",
+      "email": "alkdfkasldf@adsf",
+      "agree": true,
+      "contactType": "Tel.",
+      "message": "aklsdfklasfklkalsdfkl",
+      "id": 8
     }
   ]
 }

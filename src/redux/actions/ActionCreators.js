@@ -3,24 +3,77 @@ import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from '../../shared/baseURL';
 
 
-export const addComment = (dishId, rating, author, comment) => ({
-    
-    type : ActionTypes.ADD_COMMENT,
-    payload : {
-        dishId ,
+export const addComment = (comment) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+})
+
+export const postComment = (dishId, rating, author, comment) => (dispatch) => {
+
+    const newComment = {
+        dishId,
         rating,
         author,
         comment
     }
-})
+    newComment.date = new Date().toISOString()
+    return fetch(baseUrl + 'comments', {
+        method : 'POST',
+        body : JSON.stringify(newComment),
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        credentials : 'same-origin'
+    })
+    .then(response => {
+        if(response.ok){
+            return response
+        }
+        else{
+            const error = new Error("Error" + response.status + ': ' + response.statusText) 
+            error.response = response
+            throw error
+        }
+    },
+    (error) => {
+        const errMess = new Error(error.message)
+        throw errMess
+    })
+    .then(response => response.json())
+    .then(dishes => dispatch(addComment(dishes)))
+    .catch((err) => dispatch(commentsFailed(err.message)))
 
+} 
+
+
+// dishes
 export const fetchDishes = () => (dispatch) => {
 
     dispatch(dishesLoading(true));
 
     return fetch(baseUrl + 'dishes')
+    .then(response => {
+        if(response.ok){
+            return response
+        }
+        else{
+            const error = new Error("Error" + response.status + ': ' + response.statusText) 
+            error.response = response
+            throw error
+        }
+    },
+    (error) => {
+        const errMess = new Error(error.message)
+        throw errMess
+    })
     .then(response => response.json())
-    .then(dishes => dispatch(addDishes(dishes)));
+    .then(dishes => dispatch(addDishes(dishes)))
+    .catch((err) => {
+        dispatch(dishesFailed(err.message))
+        console.log('post comments', err.message)
+        alert('Your comment could not be posted\nError: '+err.message)
+    })
+    
 }
 
 export const dishesLoading = () => ({
@@ -38,11 +91,27 @@ export const addDishes = (dishes) => ({
 });
 
 
-
+// comments
 export const fetchComments = () => (dispatch) => {    
     return fetch(baseUrl + 'comments')
+    .then(response => {
+        if(response.ok){
+            return response
+        }
+        else{
+            const error = new Error("Error" + response.status + ': ' + response.statusText) 
+            error.response = response
+            throw error
+        }
+    },
+    (error) => {
+        const errMess = new Error(error.message)
+        throw errMess
+    })
     .then(response => response.json())
-    .then(comments => dispatch(addComments(comments)));
+    .then(comments => dispatch(addComments(comments)))
+    .catch((err) => dispatch(dishesFailed(err.message)))
+
 };
 
 export const commentsFailed = (errmess) => ({
@@ -56,13 +125,32 @@ export const addComments = (comments) => ({
 });
 
 
+
+
+// promos
 export const fetchPromos = () => (dispatch) => {
     
     dispatch(promosLoading());
 
     return fetch(baseUrl + 'promotions')
+    .then(response => {
+        if(response.ok){
+            return response
+        }
+        else{
+            const error = new Error("Error" + response.status + ': ' + response.statusText) 
+            error.response = response
+            throw error
+        }
+    },
+    (error) => {
+        const errMess = new Error(error.message)
+        throw errMess
+    })
     .then(response => response.json())
-    .then(promos => dispatch(addPromos(promos)));
+    .then(promos => dispatch(addPromos(promos)))
+    .catch((err) => dispatch(dishesFailed(err.message)))
+
 }
 
 export const promosLoading = () => ({
@@ -80,16 +168,32 @@ export const addPromos = (promos) => ({
 });
 
 
+
+// leaders
 export const fetchLeaders = () => (dispatch) => {
     
     dispatch(leadersLoading());
 
     return fetch(baseUrl +'leaders')
+    .then(response => {
+        if(response.ok){
+            return response
+        }
+        else{
+            const error = new Error("Error" + response.status + ': ' + response.statusText) 
+            error.response = response
+            throw error
+        }
+    },
+    (error) => {
+        const errMess = new Error(error.message)
+        throw errMess
+    })
     .then(response => response.json())
-    .then(leaders => {
-        console.log('leaders-red', leaders)
-        dispatch(addLeaders(leaders))})
-        .catch(err => {console.log('err', err)})
+    .then(leaders => 
+        // console.log('leaders-red', leaders)
+        dispatch(addLeaders(leaders)))
+    .catch((err) => dispatch(dishesFailed(err.message)))
 }
 
 export const leadersLoading = () => ({

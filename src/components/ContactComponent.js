@@ -12,6 +12,8 @@ import {
     Col,
 } from "reactstrap";
 
+import { baseUrl } from "../shared/baseURL";
+
 
 class Contact extends Component {
     state = {
@@ -42,9 +44,32 @@ class Contact extends Component {
     };
 
     handleSubmit = (event) => {
+
         event.preventDefault();
         console.log("state", this.state);
-        alert("state " + JSON.stringify(this.state));
+        const {firstname, lastname, telnum, email, agree, contactType, message} = this.state
+        const request = {
+            firstname,
+            lastname,
+            telnum,
+            email,
+            agree,
+            contactType,
+            message
+        }
+        fetch(baseUrl + 'feedback', {
+            method: "POST",
+            body: JSON.stringify(request),
+            headers: {
+              "Content-Type": "application/json"
+            },
+            credentials: "same-origin"
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log('res', response)
+            alert('Your Feedbakc : ' + JSON.stringify(response))})
+        .catch((err) => console.log('err', err))
     };
 
     handleBlur = (field) => (event) => {
